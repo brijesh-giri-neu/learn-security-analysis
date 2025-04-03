@@ -21,7 +21,6 @@ router.use(express.json());
  */
 router.post('/', validateBookDetailsMiddleware, async (req: Request, res: Response) => {
   const { familyName, firstName, genreName, bookTitle } = req.body;
-  if (familyName && firstName && genreName && bookTitle) {
     try {
       const book = new Book({});
       const savedBook = await book.saveBookOfExistingAuthorAndGenre(familyName, firstName, genreName, bookTitle);
@@ -29,9 +28,6 @@ router.post('/', validateBookDetailsMiddleware, async (req: Request, res: Respon
     } catch (err: unknown) {
       res.status(500).send('Error creating book: ' + (err as Error).message);
     }
-  } else {
-    res.send('Invalid Inputs');
-  }
 });
 
 export default router;

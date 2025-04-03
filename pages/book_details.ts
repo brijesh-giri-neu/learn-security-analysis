@@ -1,6 +1,7 @@
 import Book  from '../models/book';
 import BookInstance, { IBookInstance }  from '../models/bookinstance';
 import express from 'express';
+import { validateIdMiddleware } from '../sanitizers/idSanitizer';
 
 const router = express.Router();
 
@@ -13,7 +14,7 @@ const router = express.Router();
  * @returns 404 - if the book is not found
  * @returns 500 - if there is an error in the database
  */
-router.get('/', async (req, res) => {
+router.get('/', validateIdMiddleware, async (req, res) => {
   const id = req.query.id as string;
   try {
     const [book, copies] = await Promise.all([

@@ -6,7 +6,7 @@ export interface RequestWithSanitizedId extends Request {
 
 export const validateIdMiddleware = (req: RequestWithSanitizedId, res: Response, next: NextFunction) => {
     const id = req.query.id;
-  
+
     // Check if `id` exists and is a string
     if (typeof id !== 'string') {
       return res.status(400).send("Invalid ID: ID must be a string.");

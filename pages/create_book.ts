@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import Book from '../models/book';
 import express from 'express';
 import bodyParser from 'body-parser';
-import { validateBookDetailsMiddleware } from '../sanitizers/bookSanitizer';
 
 const router = express.Router();
 
@@ -19,7 +18,7 @@ router.use(express.json());
  * @returns a newly created book for an existing author and genre in the database
  * @returns 500 error if book creation failed
  */
-router.post('/', validateBookDetailsMiddleware, async (req: Request, res: Response) => {
+router.post('/', async (req: Request, res: Response) => {
   const { familyName, firstName, genreName, bookTitle } = req.body;
   if (familyName && firstName && genreName && bookTitle) {
     try {
